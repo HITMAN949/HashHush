@@ -7,7 +7,7 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "cd server && npm run dev",
     "client": "cd client && npm start",
-    "build": "npm run install-all && cd client && npm run build",
+    "build": "cd client && npm run build",
     "start": "cd server && npm start",
     "install-all": "npm install && cd server && npm install && cd ../client && npm install",
     "railway-build": "npm run install-all && npm run build",
@@ -17,6 +17,10 @@
   "keywords": ["hash", "cracker", "cryptography", "web-app"],
   "author": "HashHush Team",
   "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
   "devDependencies": {
     "concurrently": "^8.2.2"
   }
