@@ -2,6 +2,10 @@
 
 A modern, sleek hash cracking web application with a beautiful UI and powerful backend functionality.
 
+## 🌐 Live Demo
+
+**[🚀 Try HashHush Live](https://hashhush-production.up.railway.app/)**
+
 # HashHush UI Preview
 
 ![HashHush UI](client/public/screenshot.png)
