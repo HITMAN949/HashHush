@@ -21,6 +21,9 @@ if not exist "railway.json" (
 echo ⚙️ Setting environment variables...
 railway variables set NODE_ENV=production
 
+echo 🧹 Clearing build cache...
+railway up --detach --force
+
 echo 🚀 Deploying application using Docker...
 railway up
 
