@@ -32,6 +32,14 @@ A modern, sleek hash cracking web application with a beautiful UI and powerful b
 - Detailed algorithm information
 - Confidence scoring
 
+### 🌙 Dark Mode
+- **Automatic Theme Detection** - Respects system preferences
+- **Manual Theme Toggle** - Beautiful animated sun/moon button
+- **Persistent Settings** - Remembers your theme choice
+- **Smooth Transitions** - 300ms animations for all color changes
+- **Glass Morphism** - Enhanced visual effects in dark mode
+- **Accessibility** - Better contrast and reduced eye strain
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -65,13 +73,16 @@ A modern, sleek hash cracking web application with a beautiful UI and powerful b
 ```
 HashHush/
 ├── client/                 # React frontend
-│   ├── public/
+│   ├── src/
 │   │   ├── components/     # React components
-│   │   ├── utils/          # Utility functions
+│   │   │   └── ThemeToggle.tsx  # Dark mode toggle
+│   │   ├── contexts/       # React contexts
+│   │   │   └── ThemeContext.tsx # Theme management
 │   │   ├── App.tsx         # Main app component
-│   │   └── index.tsx       # Entry point
+│   │   ├── index.tsx       # Entry point
+│   │   └── index.css       # Global styles with dark mode
 │   ├── package.json
-│   └── tailwind.config.js
+│   └── tailwind.config.js  # Tailwind with dark mode config
 ├── server/                 # Node.js backend
 │   ├── index.js           # Main server file
 │   └── package.json
@@ -83,8 +94,9 @@ HashHush/
 
 ### Frontend
 - **React 18** with TypeScript
-- **Tailwind CSS** for styling
+- **Tailwind CSS** for styling with dark mode support
 - **Lucide React** for icons
+- **Context API** for theme management
 - **Modern UI/UX** with glass morphism effects
 
 ### Backend
@@ -92,6 +104,38 @@ HashHush/
 - **Crypto-js** for hash generation
 - **bcrypt** for password hashing
 - **Security middleware** (helmet, rate limiting, CORS)
+
+## 🌙 Dark Mode Features
+
+### Automatic Detection
+- **System Preference**: Automatically detects your OS dark mode setting
+- **Local Storage**: Remembers your theme choice across sessions
+- **Real-time Updates**: Responds to system theme changes
+
+### Theme Toggle
+- **Animated Button**: Beautiful sun/moon icon with rotation effects
+- **Smooth Transitions**: 300ms animations for all color changes
+- **Accessible**: Proper ARIA labels and keyboard navigation
+
+### Color Schemes
+
+#### Light Mode
+- **Background**: `#f7faff` (light blue-gray)
+- **Surface**: `#ffffff` (white)
+- **Text**: `#22304a` (dark blue-gray)
+- **Primary**: `#22304a` (dark blue)
+
+#### Dark Mode
+- **Background**: `#0f172a` (dark slate)
+- **Surface**: `#1e293b` (slate-800)
+- **Text**: `#f1f5f9` (slate-100)
+- **Primary**: `#60a5fa` (blue-400)
+
+### Implementation Details
+- **CSS Custom Properties**: Complete theming system
+- **Tailwind Integration**: Class-based dark mode with `dark:` prefixes
+- **Context API**: React context for theme state management
+- **Performance**: Optimized with minimal re-renders
 
 ## 🔧 Available Scripts
 
@@ -149,10 +193,11 @@ HashHush/
 
 - **Glass Morphism Design** - Modern, translucent UI elements
 - **Responsive Layout** - Works on desktop, tablet, and mobile
-- **Dark Theme** - Easy on the eyes with gradient backgrounds
+- **Dark Mode Support** - Beautiful light and dark themes
 - **Smooth Animations** - CSS transitions and micro-interactions
 - **Copy to Clipboard** - One-click hash copying
 - **Real-time Feedback** - Loading states and error handling
+- **Theme Persistence** - Remembers your theme preference
 
 ## 🔒 Security Features
 

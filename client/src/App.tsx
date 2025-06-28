@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
+import { ThemeProvider } from './contexts/ThemeContext';
+import ThemeToggle from './components/ThemeToggle';
 
 type TabType = 'crack' | 'generate' | 'detect';
 
 const App: React.FC = () => {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
+  );
+};
+
+const AppContent: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabType>('crack');
 
   const tabs = [
@@ -21,28 +31,29 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b border-gray-200">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-900 transition-colors duration-300">
+      <header className="bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 transition-colors duration-300">
         <div className="max-w-4xl mx-auto px-6 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <img src="/logo.png" alt="HashHush Logo" className="w-24 h-24 rounded shadow-lg mr-4 bg-white border border-gray-200 p-1" />
+              <img src="/logo.png" alt="HashHush Logo" className="w-24 h-24 rounded shadow-lg mr-4 bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 p-1 transition-colors duration-300" />
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">HashHush</h1>
-                <p className="text-sm text-gray-500">Hash cracking tool</p>
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white transition-colors duration-300">HashHush</h1>
+                <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Hash cracking tool</p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-              <span className="text-sm text-gray-500">Connected</span>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <span className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Connected</span>
+              </div>
+              <ThemeToggle />
             </div>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="max-w-4xl mx-auto px-6 py-8">
-        {/* Tab Navigation */}
         <div className="mb-8">
           <div className="flex tabs-gradient-border p-1">
             {tabs.map((tab) => (
@@ -58,22 +69,20 @@ const App: React.FC = () => {
             ))}
           </div>
           <div className="mt-3 text-center">
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">
               {tabs.find(tab => tab.id === activeTab)?.description}
             </p>
           </div>
         </div>
 
-        {/* Content Card */}
         <div className="card p-8">
           {renderContent()}
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-gray-200 bg-white mt-16">
+      <footer className="border-t border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 mt-16 transition-colors duration-300">
         <div className="max-w-4xl mx-auto px-6 py-6">
-          <div className="text-center text-sm text-gray-500">
+          <div className="text-center text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">
             © 2025 HashHush. All rights reserved.
           </div>
         </div>
@@ -82,7 +91,6 @@ const App: React.FC = () => {
   );
 };
 
-// Hash Cracker Component
 const HashCracker: React.FC = () => {
   const [hash, setHash] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -120,7 +128,7 @@ const HashCracker: React.FC = () => {
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-6 text-center">Hash Cracker</h2>
+      <h2 className="text-xl font-semibold mb-6 text-center text-gray-900 dark:text-white transition-colors duration-300">Hash Cracker</h2>
       <div className="space-y-6">
         <div>
           <label className="label">Hash to crack</label>
@@ -131,7 +139,7 @@ const HashCracker: React.FC = () => {
             placeholder="Enter hash (e.g., 5f4dcc3b5aa765d61d8327deb882cf99)"
             className="input"
           />
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 transition-colors duration-300">
             Try common hashes like: 5f4dcc3b5aa765d61d8327deb882cf99 (password), 
             e10adc3949ba59abbe56e057f20f883e (123456)
           </p>
@@ -154,7 +162,7 @@ const HashCracker: React.FC = () => {
         {error && (
           <div className="result">
             <h3 className="font-semibold mb-3 status-error">Error</h3>
-            <p className="text-sm text-gray-600">{error}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300 transition-colors duration-300">{error}</p>
           </div>
         )}
         
@@ -165,21 +173,21 @@ const HashCracker: React.FC = () => {
             </h3>
             <div className="space-y-2">
               <div className="flex justify-between">
-                <span className="text-sm text-gray-600">Algorithm:</span>
-                <span className="text-sm font-mono">{result.algorithm}</span>
+                <span className="text-sm text-gray-600 dark:text-gray-300 transition-colors duration-300">Algorithm:</span>
+                <span className="text-sm font-mono text-gray-900 dark:text-white transition-colors duration-300">{result.algorithm}</span>
               </div>
               {result.found && (
                 <div className="flex justify-between">
-                  <span className="text-sm text-gray-600">Password:</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-300 transition-colors duration-300">Password:</span>
                   <span className="text-sm font-mono status-success font-bold">{result.password}</span>
                 </div>
               )}
               {!result.found && (
-                <div className="mt-3 p-3 bg-yellow-50 border border-yellow-200 rounded-md">
-                  <p className="text-sm text-yellow-800">
+                <div className="mt-3 p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-700 rounded-md transition-colors duration-300">
+                  <p className="text-sm text-yellow-800 dark:text-yellow-200 transition-colors duration-300">
                     The hash was not found in our dictionary. This could mean:
                   </p>
-                  <ul className="text-sm text-yellow-700 mt-2 list-disc list-inside">
+                  <ul className="text-sm text-yellow-700 dark:text-yellow-300 mt-2 list-disc list-inside transition-colors duration-300">
                     <li>The password is not in our common password list</li>
                     <li>The hash uses a different algorithm</li>
                     <li>The hash might be salted or use additional security measures</li>
@@ -194,7 +202,6 @@ const HashCracker: React.FC = () => {
   );
 };
 
-// Hash Generator Component
 const HashGenerator: React.FC = () => {
   const [text, setText] = useState('');
   const [algorithm, setAlgorithm] = useState('md5');
@@ -221,7 +228,7 @@ const HashGenerator: React.FC = () => {
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-6 text-center">Hash Generator</h2>
+      <h2 className="text-xl font-semibold mb-6 text-center text-gray-900 dark:text-white transition-colors duration-300">Hash Generator</h2>
       <div className="space-y-6">
         <div>
           <label className="label">Text to hash</label>
@@ -273,7 +280,6 @@ const HashGenerator: React.FC = () => {
   );
 };
 
-// Hash Detector Component
 const HashDetector: React.FC = () => {
   const [hash, setHash] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -299,7 +305,7 @@ const HashDetector: React.FC = () => {
 
   return (
     <div>
-      <h2 className="text-xl font-semibold mb-6 text-center">Hash Detector</h2>
+      <h2 className="text-xl font-semibold mb-6 text-center text-gray-900 dark:text-white transition-colors duration-300">Hash Detector</h2>
       <div className="space-y-6">
         <div>
           <label className="label">Hash to detect</label>
@@ -330,11 +336,11 @@ const HashDetector: React.FC = () => {
             <h3 className="font-semibold mb-3 status-info">Detection Result</h3>
             <div className="space-y-2">
               <div className="flex justify-between">
-                <span className="text-sm text-gray-600">Algorithm:</span>
-                <span className="text-sm font-mono">{result.detectedType.toUpperCase()}</span>
+                <span className="text-sm text-gray-600 dark:text-gray-300 transition-colors duration-300">Algorithm:</span>
+                <span className="text-sm font-mono text-gray-900 dark:text-white transition-colors duration-300">{result.detectedType.toUpperCase()}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-sm text-gray-600">Confidence:</span>
+                <span className="text-sm text-gray-600 dark:text-gray-300 transition-colors duration-300">Confidence:</span>
                 <span className={`text-sm ${result.confidence === 'high' ? 'status-success' : 'status-error'}`}>
                   {result.confidence === 'high' ? 'High' : 'Low'}
                 </span>
