@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const CryptoJS = require('crypto-js');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -15,7 +16,7 @@ const PORT = process.env.PORT || 5000;
 app.use(helmet());
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://yourdomain.com'] 
+    ? [process.env.RAILWAY_PUBLIC_DOMAIN, 'https://yourdomain.com'] 
     : ['http://localhost:3000'],
   credentials: true
 }));
@@ -35,6 +36,16 @@ app.use(morgan('combined'));
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
 
 // Hash detection function
 function detectHashType(hash) {
@@ -396,12 +407,24 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Something went wrong!' });
 });
 
-// 404 handler
-app.use('*', (req, res) => {
-  res.status(404).json({ error: 'Route not found' });
-});
+// Serve static files from React build in production
+if (process.env.NODE_ENV === 'production') {
+  // Serve static files from the React build
+  app.use(express.static(path.join(__dirname, '../client/build')));
+  
+  // Handle React routing, return all requests to React app
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  });
+} else {
+  // 404 handler for development
+  app.use('*', (req, res) => {
+    res.status(404).json({ error: 'Route not found' });
+  });
+}
 
 app.listen(PORT, () => {
   console.log(`🚀 Hash Hush Server running on port ${PORT}`);
   console.log(`📊 Health check: http://localhost:${PORT}/api/health`);
+  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
 }); 

@@ -160,6 +160,49 @@ HashHush/
 
 ## 🚀 Production Deployment
 
+### Railway Deployment (Recommended)
+
+Railway is a modern platform that makes it easy to deploy full-stack applications. Follow these steps to deploy HashHush:
+
+1. **Install Railway CLI** (optional but recommended)
+   ```bash
+   npm install -g @railway/cli
+   ```
+
+2. **Login to Railway**
+   ```bash
+   railway login
+   ```
+
+3. **Initialize Railway project**
+   ```bash
+   railway init
+   ```
+
+4. **Deploy to Railway**
+   ```bash
+   railway up
+   ```
+
+5. **Set environment variables** (in Railway dashboard or CLI)
+   ```bash
+   railway variables set NODE_ENV=production
+   ```
+
+6. **Get your deployment URL**
+   ```bash
+   railway domain
+   ```
+
+The application will be automatically built and deployed. Railway will:
+- Install all dependencies (root, server, and client)
+- Build the React frontend
+- Start the Node.js server
+- Serve the built React app from the Express server
+- Provide a public URL for your application
+
+### Manual Deployment
+
 ### Environment Variables
 ```bash
 NODE_ENV=production

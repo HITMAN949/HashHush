@@ -9,7 +9,8 @@
     "client": "cd client && npm start",
     "build": "cd client && npm run build",
     "start": "cd server && npm start",
-    "install-all": "npm install && cd server && npm install && cd ../client && npm install"
+    "install-all": "npm install && cd server && npm install && cd ../client && npm install",
+    "railway-build": "npm run install-all && npm run build && NODE_ENV=production"
   },
   "keywords": ["hash", "cracker", "cryptography", "web-app"],
   "author": "HashHush Team",
