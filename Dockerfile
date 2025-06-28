@@ -6,9 +6,9 @@ COPY package*.json ./
 COPY server/package*.json ./server/
 COPY client/package*.json ./client/
 
-RUN npm install
-RUN cd server && npm install
-RUN cd ../client && npm install
+RUN npm install && \
+    cd server && npm install && \
+    cd ../client && npm install
 
 COPY . .
 
