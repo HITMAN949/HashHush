@@ -7,10 +7,12 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "cd server && npm run dev",
     "client": "cd client && npm start",
-    "build": "cd client && npm run build",
+    "build": "npm run install-all && cd client && npm run build",
     "start": "cd server && npm start",
     "install-all": "npm install && cd server && npm install && cd ../client && npm install",
-    "railway-build": "npm run install-all && npm run build && NODE_ENV=production"
+    "railway-build": "npm run install-all && npm run build",
+    "postinstall": "cd server && npm install && cd ../client && npm install",
+    "railway-deploy": "npm run install-all && cd client && npm run build && echo 'Build completed successfully'"
   },
   "keywords": ["hash", "cracker", "cryptography", "web-app"],
   "author": "HashHush Team",
